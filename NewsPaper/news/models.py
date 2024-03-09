@@ -24,8 +24,7 @@ class Author(models.Model):
         # print('..........................')
         # print(rating_comments_author)
         # print('..........................')
-        # print(rating_comments_
- post)
+        # print(rating_comments_post)
         self.rating_author = sum_rating_of_post_multiply + rating_comments_author + rating_comments_post
         self.save()
 
@@ -41,6 +40,10 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     text = models.TextField()
     rating_post = models.IntegerField(default=0)
+
+
+    def __str__(self):
+        return self.title
 
     def like(self):
         self.rating_post += 1

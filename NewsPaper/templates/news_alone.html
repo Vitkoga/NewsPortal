@@ -1,0 +1,18 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+News
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим сам товар, идентификатор которого был передан в url -->
+{% block content %}
+
+            <h2>{{ news_alone.title }}</h2>
+            <br>
+            <h2>Дата публикации {{ news_alone.date_in|date:'M d Y' }}</h2>
+            <br>
+            <h2>Текст</h2>
+            <br>
+            <h2>{{ news_alone.text }}</h2>
+
+{% endblock content %}
