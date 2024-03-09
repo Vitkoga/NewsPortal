@@ -1,0 +1,82 @@
+from news.models import *
+
+u1 = User.objects.create_user('Антон') 
+
+u2 = User.objects.create_user('Сергей')
+
+a1 = Author.objects.create(author=u1)
+
+a2 = Author.objects.create(author=u2)
+
+cat1 = Category.objects.create(name='Политика')
+
+cat2 = Category.objects.create(name='Экономика')
+
+cat3 = Category.objects.create(name='Наука')
+
+cat4 = Category.objects.create(name='Спорт')
+
+p1 = Post.objects.create(author=a1, title='Заголовок', post_type='NE', text='Содержание новости')
+
+p1.category.add(cat1)
+
+p2 = Post.objects.create(author=a1, title='Шахтский мат', post_type='AR', text='Почему ухудшились отношения Ирана и Армении')
+
+p2.category.add(cat1)
+
+p3 = Post.objects.create(author=a2, title='Странный симбиоз живой лягушки и гриба', post_type='AR', text='Текст статьи')
+
+p3.category.add(cat3)
+
+comm1 = Comment.objects.create(user=u1, post=p2, text='Нет стабильности в мире ...')
+
+comm2 = Comment.objects.create(user=u1, post=p3, text='Чего только не бывает ...')
+
+comm3 = Comment.objects.create(user=u2, post=p2, text='Своих проблем хватает ...')
+
+comm4 = Comment.objects.create(user=u2, post=p3, text='Наконец-то подружились')
+
+p1.like()
+
+p2.like()
+
+p3.like()
+
+comm1.like()
+
+comm2.dislike()
+
+comm3.dislike()
+
+comm4.like()
+
+a1.update_rating()
+
+
+Метод выдает ошибки. Пока не могу в нем разобраться потому, что не пойму 
+алгоритм работы метода. Все видео просмотрел.
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
