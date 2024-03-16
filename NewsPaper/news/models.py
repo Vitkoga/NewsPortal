@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Sum
 from django.db.models.functions import Coalesce
+from django.urls import reverse
 
 news = "NE"
 articles = "AR"
@@ -15,6 +16,9 @@ POST = [
 class Author(models.Model):
     author = models.OneToOneField(User, on_delete=models.CASCADE)
     rating_author = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.author.username
 
     def update_rating(self):
         sum_rating_of_post_multiply = Post.objects.filter(author_id=self.pk).aggregate(rating=Sum('rating_post'))['rating'] * 3
@@ -30,6 +34,9 @@ class Author(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=25, unique=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Post(models.Model):
@@ -56,10 +63,14 @@ class Post(models.Model):
     def preview(self):
         return self.text[:124] + '...'
 
+    def get_absolute_url (self):
+        return reverse('news_alone', kwargs={'pk': self.pk})
+
 
 class PostCategory(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
 
 
 class Comment(models.Model):
@@ -76,3 +87,6 @@ class Comment(models.Model):
     def dislike(self):
         self.rating_comment -= 1
         self.save()
+
+    def __str__(self):
+        return self.text
